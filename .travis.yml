@@ -1,0 +1,27 @@
+sudo: false
+language: php
+
+php:
+ - 5.5
+ - 5.6
+ - 7.0
+ - hhvm
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
+
+before_script:
+ - mkdir -p build/logs
+ - curl -s https://getcomposer.org/installer | php
+ - php composer.phar install
+
+script:
+ - php vendor/bin/phpunit -c . --coverage-clover build/logs/clover.xml
+
+after_script:
+ - php vendor/bin/coveralls -vvv
+
+notifications:
+  email: martin.aarhof@gmail.com

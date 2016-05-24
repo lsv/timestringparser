@@ -1,0 +1,23 @@
+{
+    "name": "lsv/timestringparser",
+    "license": "MIT",
+    "description": "Parse a text string to minutes in integer",
+    "keywords": ["Minutes", "Text", "Parse"],
+    "require": {
+        "php": "^5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lsv\\TimestringParser\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lsv\\TimestringParserTest\\": "tests"
+        }
+    }
+}
