@@ -20,8 +20,9 @@ before_script:
 script:
  - php vendor/bin/phpunit -c . --coverage-clover build/logs/clover.xml
 
-after_script:
- - php vendor/bin/coveralls -vvv
+after_success:
+  - php vendor/bin/coveralls -vvv
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: martin.aarhof@gmail.com
