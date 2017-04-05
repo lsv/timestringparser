@@ -14,6 +14,11 @@ And if you have multiple hour letters you can set these in the constructor, see 
 * 2t20 = 140
 * 3x84s = 264
 
+##### New in 2.0
+
+* You can now add a low minute, meaning if set it to 4, then if you write 3, it will become 3 hours, if you write 5 it will still be 5 minutes.
+* By default the `low minute` variable is NULL, meaning its not used
+
 ### Install
 
 `composer require lsv/timestringparser`
@@ -33,7 +38,13 @@ to your `composer.json`
 ### Usage
 
 By standard hour letter is `h` and minute letter is `m` but these can be customized in the constructor `new TimestringParser(['h','t','u'], ['m','x','y']);` now `h`, `t` and `u` can be used to parse the hour part of the time string, and the letters `m`, `x`, `y` can be used to parse the minute part of the time string
-  
+ 
+##### New in 2.0
+
+You can set the `low minute` variable in the constructor `new TimestringParser(['h','t','u'], ['m','x','y'], <low minute>);`
+
+It needs to be a integer
+ 
 ### Examples
 
 ```php
@@ -45,6 +56,18 @@ $parser = new TimestringParser(['h','t','u'], ['m','x','y']);
 foreach($timestrings as $string) {
     echo $parser->parseTimeString($string); // Return integers
 }
+```
+
+##### Low minute example
+
+```
+$timestrings = [1, 2, '3', '4', 5];
+$parser = new TimestringParser(['h'], ['m'], 3);
+echo $parser->parseTimeString(1); // Returns 60
+echo $parser->parseTimeString(2); // Returns 120
+echo $parser->parseTimeString('3'); // Returns 180
+echo $parser->parseTimeString('4'); // Returns 4
+echo $parser->parseTimeString(5); // Returns 5
 ```
 
 ### License

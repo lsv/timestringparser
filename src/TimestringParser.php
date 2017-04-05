@@ -45,10 +45,19 @@ class TimestringParser
      */
     protected $hourLetters;
 
-    public function __construct(array $hourLetters = ['h'], array $minuteLetters = ['m'])
+    /**
+     * Set this to a number, and if this value is 5,
+     * then everything you write equals or lower than this, will become hours
+     *
+     * @var int
+     */
+    public $lowMinutes;
+
+    public function __construct(array $hourLetters = ['h'], array $minuteLetters = ['m'], int $lowMinutes = null)
     {
         $this->hourLetters = $hourLetters;
         $this->minuteLetters = $minuteLetters;
+        $this->lowMinutes = $lowMinutes;
     }
 
     /**
@@ -101,6 +110,12 @@ class TimestringParser
             }
 
             return $minutes;
+        }
+
+        if ($this->lowMinutes !== null) {
+            if (((int)$time) <= $this->lowMinutes) {
+                return ((int)$time) * 60;
+            }
         }
 
         return (int) $time;

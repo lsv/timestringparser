@@ -12,6 +12,7 @@ class TimestringParserTest extends TestCase
     public function dataProvider()
     {
         return [
+            ['1', 1],
             ['3:20', (3 * 60) + 20],
             ['4h48', (4 * 60) + 48],
             ['3h 20m', (3 * 60) + 20],
@@ -78,6 +79,29 @@ class TimestringParserTest extends TestCase
     {
         $parser = new TimestringParser(['h','t','u'], ['m','x','y']);
         $this->assertEquals($expected, $parser->parseTimeString($string));
+    }
+
+    public function dataProviderLowMinutes() : array
+    {
+        return [
+            [3, (3 * 60), 3],
+            [3, 3, 2],
+            [3, (3 * 60), 4],
+            [10, 10 * 60, 10],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderLowMinutes
+     *
+     * @param int $number
+     * @param int $expected
+     * @param int $lowinutes
+     */
+    public function test_low_minutes(int $number, int $expected, int $lowinutes) : void
+    {
+        $parser = new TimestringParser(['h'], ['m'], $lowinutes);
+        $this->assertEquals($expected, $parser->parseTimeString($number));
     }
 
 }
