@@ -51,7 +51,7 @@ class TimestringParserTest extends TestCase
      * @param array $hourLetters
      * @param array $minLetters
      */
-    public function test_funny_letters(string $string, int $expected, array $hourLetters, array $minLetters) : void
+    public function test_funny_letters(string $string, int $expected, array $hourLetters, array $minLetters)
     {
         $this->assertEquals($expected, (new TimestringParser($hourLetters, $minLetters))->parseTimeString($string));
     }
@@ -75,7 +75,7 @@ class TimestringParserTest extends TestCase
      * @param string $string
      * @param int $expected
      */
-    public function test_readme_examples(string $string, int $expected) : void
+    public function test_readme_examples(string $string, int $expected)
     {
         $parser = new TimestringParser(['h','t','u'], ['m','x','y']);
         $this->assertEquals($expected, $parser->parseTimeString($string));
@@ -98,7 +98,7 @@ class TimestringParserTest extends TestCase
      * @param int $expected
      * @param int $lowinutes
      */
-    public function test_low_minutes(int $number, int $expected, int $lowinutes) : void
+    public function test_low_minutes(int $number, int $expected, int $lowinutes)
     {
         $parser = new TimestringParser(['h'], ['m'], $lowinutes);
         $this->assertEquals($expected, $parser->parseTimeString($number));
