@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace Lsv\TimestringParserTest;
 
 use Lsv\TimestringParser\TimestringParser;
+use PHPUnit\Framework\TestCase;
 
-class TimestringParserTest extends \PHPUnit_Framework_TestCase
+class TimestringParserTest extends TestCase
 {
 
     public function dataProvider()
@@ -48,12 +50,12 @@ class TimestringParserTest extends \PHPUnit_Framework_TestCase
      * @param array $hourLetters
      * @param array $minLetters
      */
-    public function test_funny_letters($string, $expected, $hourLetters, $minLetters)
+    public function test_funny_letters(string $string, int $expected, array $hourLetters, array $minLetters) : void
     {
         $this->assertEquals($expected, (new TimestringParser($hourLetters, $minLetters))->parseTimeString($string));
     }
 
-    public function dataProviderReadme()
+    public function dataProviderReadme() : array
     {
         return [
             ['3:20', (3 * 60) + 20],
@@ -72,7 +74,7 @@ class TimestringParserTest extends \PHPUnit_Framework_TestCase
      * @param string $string
      * @param int $expected
      */
-    public function test_readme_examples($string, $expected)
+    public function test_readme_examples(string $string, int $expected) : void
     {
         $parser = new TimestringParser(['h','t','u'], ['m','x','y']);
         $this->assertEquals($expected, $parser->parseTimeString($string));

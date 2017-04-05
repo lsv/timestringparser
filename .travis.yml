@@ -2,27 +2,21 @@ sudo: false
 language: php
 
 php:
- - 5.5
- - 5.6
  - 7.0
  - 7.1
  - hhvm
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm
 
 before_script:
- - mkdir -p build/logs
  - curl -s https://getcomposer.org/installer | php
  - php composer.phar install
 
 script:
- - php vendor/bin/phpunit -c . --coverage-clover build/logs/clover.xml
+ - php vendor/bin/phpunit
 
 after_success:
-  - php vendor/bin/coveralls -vvv
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
